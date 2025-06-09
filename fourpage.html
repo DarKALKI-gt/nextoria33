@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Career Stream Suggestion</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fcff;
+      margin: 0;
+      padding: 30px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #2c3e50;
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #ecf0f1;
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .suggestion {
+      background: #e8f5e9;
+      border-left: 5px solid #27ae60;
+      padding: 15px;
+      font-size: 16px;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Your Top Subjects</h1>
+    <ul id="subjectList"></ul>
+    <div id="careerSuggestion" class="suggestion"></div>
+  </div>
+
+  <script>
+    const subjectList = document.getElementById('subjectList');
+    const suggestionBox = document.getElementById('careerSuggestion');
+
+    // Get data from localStorage
+    const topSubjects = JSON.parse(localStorage.getItem("topSubjects")) || [];
+
+    if (topSubjects.length === 0) {
+      subjectList.innerHTML = "<li>No result data found. Please take the test first.</li>";
+    } else {
+      topSubjects.slice(0, 3).forEach(subject => {
+        subjectList.innerHTML += `<li>${subject}</li>`;
+      });
+
+      const top = topSubjects[0];
+      let suggestion = "";
+
+      if (top === "Mathematics") {
+        suggestion = "📘 Based on your top subject <strong>Mathematics</strong>, you should consider choosing <strong>Maths stream</strong> after 12th (like B.Sc, Engineering, or Commerce with Maths).";
+      } else if (top === "Social Studies") {
+        suggestion = "📘 Your top subject is <strong>Social Studies</strong>. You can pursue <strong>Commerce, Humanities, or Law</strong> after 12th.";
+      } else {
+        suggestion = `📘 You're good in <strong>${top}</strong>. Explore career paths related to this subject.`;
+      }
+
+      suggestionBox.innerHTML = suggestion;
+    }
+  </script>
+</body>
+</html>
